@@ -7,8 +7,8 @@ from flask_login import login_required
 
 
 
-@app.route('/')
 
+@app.route('/')
 def home():
     names = Name.query.all()
     total_users = len(names)
@@ -57,6 +57,33 @@ def detailform(id):
 
 
 
+@app.route("/updateform/<int:id>", methods=["GET","POST"])
+def updateform(id):
+    query = Name.query.get(id)
+    if query:
+        form = NameForm(request.form,obj=query)
+        if request.method == 'POST' and form.validate_on_submit:
+            name = request.form['name']
+            surname = request.form['surname']
+            age = request.form['age']
+            flash('Name updated successfully')
+            return redirect(url_for('home'))
+    return render_template('updateform.htm', form=form)
 
 
 
+# def edit(id):
+#     qry = db_session.query(Album).filter(
+#                 Album.id==id)
+#     album = qry.first()
+ 
+#     if album:
+#         form = AlbumForm(formdata=request.form, obj=album)
+#         if request.method == 'POST' and form.validate():
+#             # save edits
+#             save_changes(album, form)
+#             flash('Album updated successfully!')
+#             return redirect('/')
+#         return render_template('edit_album.html', form=form)
+#     else:
+#         return 'Error loading #{id}'.format(id=id)
