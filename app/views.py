@@ -66,24 +66,12 @@ def updateform(id):
             name = request.form['name']
             surname = request.form['surname']
             age = request.form['age']
+            query.name = name
+            query.surname = surname
+            query.age = age
+            db.session.add(query)
+            db.session.commit()
             flash('Name updated successfully')
             return redirect(url_for('home'))
     return render_template('updateform.htm', form=form)
 
-
-
-# def edit(id):
-#     qry = db_session.query(Album).filter(
-#                 Album.id==id)
-#     album = qry.first()
- 
-#     if album:
-#         form = AlbumForm(formdata=request.form, obj=album)
-#         if request.method == 'POST' and form.validate():
-#             # save edits
-#             save_changes(album, form)
-#             flash('Album updated successfully!')
-#             return redirect('/')
-#         return render_template('edit_album.html', form=form)
-#     else:
-#         return 'Error loading #{id}'.format(id=id)
