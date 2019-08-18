@@ -1,0 +1,19 @@
+{% extends 'base.htm' %}
+
+
+
+{% block title %}Delete {% endblock %}
+
+
+
+{% block content %}
+
+<form method="POST">
+    <p>Are you sure wanna delete {{data.name}}?</p>
+    <button type="submit">Yes</button>
+    <a href="{{url_for('detailform' , id=data.id)}}"><button type="button">No</button></a>
+</form>
+
+{% endblock %}
+
+

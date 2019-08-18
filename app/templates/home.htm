@@ -1,0 +1,30 @@
+{% extends 'base.htm' %}
+
+
+{% block title %} Homepage {% endblock title %}
+
+
+{% block content %}
+
+{% if current_user.is_authenticated %}
+<p>Welcome {{current_user.username}}</p>
+
+<a href="{{url_for('user.logout')}}">Log Out</a>
+<br>
+{% endif %}
+<a href="{{url_for('form')}}"> Add User</a>
+{% if names %}
+
+{% for name in names %}
+<ul>
+    <a href="{{url_for('detailform' , id=name.id)}}"><h1>Name:{{name.name}}</h1></a>
+</ul>
+
+{% endfor %}
+{% endif %}
+
+<br>
+<p>Total Users: {{total}}</p>
+{% endblock content %}
+
+
